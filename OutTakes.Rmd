@@ -1,0 +1,119 @@
+---
+title: "OutTakes.Rmd"
+author: "Jim Callahan"
+date: "October 25, 2015"
+output: pdf_document
+---
+
+paper describing the experiment suggested that there were "96 features" (variables).
+
+> "a wearable sensor-oriented classification approach for the detection of mistakes"  
+
+> "mounted the sensors in the users' glove, armband, lumbar belt and
+> dumbbell (see Figure 1)."
+
+**Sensors  (from Figure 1)**  
+
+- ArmBand (on body)  
+- Belt (on body)  
+- Glove (on body)  
+- Dumbbell (on weight)  
+
+"For data recording we used four 9 degrees of freedom Razor
+inertial measurement units (IMU), 
+which provide three-axes acceleration, gyroscope and magnetometer data at a joint
+sampling rate of 45 Hz."
+
+**Class**  
+> "**Class A** corresponds to the [correct] specified execution of the exercise,  
+> while the other 4 classes correspond to common mistakes."  
+  
+A. Correct -- "exactly according to the specification"  
+B. Incorrect -- "throwing the elbows to the front"  
+C. Incorrect -- "lifting the dumbbell only halfway"  
+D. Incorrect -- "lowering the dumbbell only halfway"  
+E. Incorrect -- "throwing the hips to the front"  
+  
+  
+
+**Window**  
+
+
+**Euler Angles**  
+> "Euler angles (roll, pitch and yaw)"  
+
+-Roll  
+-Pitch  
+-Yaw  
+
+**Calculated 8 Features**  
+> "For the **[three] Euler angles** of each of the **four sensors**  
+> we **calculated eight features**:  
+> mean, variance, standard deviation, max, min, amplitude, kurtosis and skewness,  
+> generating in total **96 derived feature sets.**"  
+
+3 Euler angles  
+4 Sensors  
+8 Calculated Features  
+
+```{r}
+3*4*8
+```
+
+
+
+
+**Quality**
+> "if we can specify how an activity has to be performed we can measure the quality  
+> by comparing its execution against this specification.  
+>  
+> From this, we define quality as the adherence of the execution of an activity  
+> to its specification.  
+>  
+> From this, we define a qualitative activity recognition system as a   
+> software artefact that observes the user's execution of an activity and
+> compares it to a specification."
+
+
+**Drop "X" the ID number to prevent "data leakage"**  
+The variable "**X**" appears to be a sequence number and will have to be discarded prior
+to training to avoid "data leakage".  
+
+```{r}
+summary(rawtraining$X)
+```
+
+
+The sequence number should be non-informative (useless) but if it turns out to be predictive it would be an example of "**data leakage**".  
+  
+  
+Kaggle defines **data leakage** as, "the creation of unexpected additional information 
+in the training data, allowing a model or machine learning algorithm to make unrealistically 
+good predictions."  
+https://www.kaggle.com/wiki/Leakage
+
+An similar example of data leakage would be:  
+"You’re trying to study who has breast cancer.  The **patient ID**, which seemed 
+innocent, actually has predictive power. What happened?  ...This is probably a 
+consequence of using multiple databases [each from different cancer centers], some 
+of which correspond to [specialize in] sicker patients are more likely to be sick."  
+This blog post corresponds to pages 310-311 in the book, "**Doing Data Science**".  
+http://mathbabe.org/2012/11/20/columbia-data-science-course-week-12-predictive-modeling-data-leakage-model-evaluation/
+
+
+
+> "For the **[three] Euler angles** of each of the **four sensors**  we  calculated 
+> **eight features**:   
+> mean, variance, standard deviation, max, min, amplitude, kurtosis and skewness,  
+> generating in total **96 derived feature sets.**"  
+    
+**3 Euler angles**  
+  - roll, pitch and yaw    
+**4 Sensors**  
+  - belt, arm ("armband"), dumbell and forearm ("glove")  
+**8 Calculated Features**  
+  - mean, variance, standard deviation, max, min, amplitude, kurtosis and skewness     
+  
+```{r}
+3*4*8
+```
